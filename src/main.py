@@ -104,12 +104,19 @@ def visualitation(listPoint, pair, D, text):
         x = []
         y = []
         for i in range(N):
-            x.append(listPoint.get(i).coordinates[0])
-            y.append(listPoint.get(i).coordinates[1])
+            if (listPoint.get(i) != pair[0] and listPoint.get(i) != pair[1]):
+                x.append(listPoint.get(i).coordinates[0])
+                y.append(listPoint.get(i).coordinates[1])
 
         plt.scatter(x, y, color='blue')
         plt.scatter([pair[0].coordinates[0], pair[1].coordinates[0]], [
                     pair[0].coordinates[1], pair[1].coordinates[1]], color='red')
+        # Berikan informasi kooridnat titik terdekat
+        plt.text(pair[0].coordinates[0], pair[0].coordinates[1], str(
+            pair[0].coordinates[0]) + "," + str(pair[0].coordinates[1]))
+        plt.text(pair[1].coordinates[0], pair[1].coordinates[1], str(
+            pair[1].coordinates[0]) + "," + str(pair[1].coordinates[1]))
+
         plt.title(text)
         plt.show()
 
@@ -130,6 +137,12 @@ def visualitation(listPoint, pair, D, text):
         ax.scatter(x, y, z, color='blue')
         ax.scatter([pair[0].coordinates[0], pair[1].coordinates[0]], [
             pair[0].coordinates[1], pair[1].coordinates[1]], [pair[0].coordinates[2], pair[1].coordinates[2]], color='red')
+
+        # Berikan informasi kooridnat titik terdekat
+        ax.text(pair[0].coordinates[0], pair[0].coordinates[1], pair[0].coordinates[2], str(
+            pair[0].coordinates[0]) + "," + str(pair[0].coordinates[1]) + "," + str(pair[0].coordinates[2]))
+        ax.text(pair[1].coordinates[0], pair[1].coordinates[1], pair[1].coordinates[2], str(
+            pair[1].coordinates[0]) + "," + str(pair[1].coordinates[1]) + "," + str(pair[1].coordinates[2]))
         ax.set_title(text)
         plt.show()
 
@@ -142,6 +155,13 @@ def visualitation(listPoint, pair, D, text):
         plt.scatter(x, [0] * N, color='blue')
         plt.scatter([pair[0].coordinates[0], pair[1].coordinates[0]], [
                     0, 0], color='red')
+
+        # Berikan informasi kooridnat titik terdekat
+        plt.text(pair[0].coordinates[0], 0, str(
+            pair[0].coordinates[0]))
+        plt.text(pair[1].coordinates[0], 0, str(
+            pair[1].coordinates[0]))
+
         plt.title(text)
         plt.show()
 
