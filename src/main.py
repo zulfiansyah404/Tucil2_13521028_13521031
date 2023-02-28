@@ -67,13 +67,15 @@ def checkInputN(warning):
 
 
 def printSystemInfo():
-    print(cyan + bold + "\nInformasi sistem:" + reset)
-    print(blue + "Nama sistem operasi:" + white, platform.system())
-    print(blue + "Versi sistem operasi:" + white, platform.release())
-    print(blue + "Processor:" + white, platform.processor())
-    print(blue + "Jumlah core:" + white, psutil.cpu_count())
-    print(blue + "Jumlah thread:" + white, psutil.cpu_count(logical=False))
-    print(blue + "RAM:" + white, psutil.virtual_memory().total / 1024 / 1024, "MB")
+    print(cyan + bold + "\nInformasi sistem" + reset)
+    print(blue + "Nama sistem operasi  :" + white, platform.system())
+    print(blue + "Versi sistem operasi :" + white, platform.release())
+    print(blue + "Processor            :" + white, platform.processor())
+    print(blue + "Jumlah core          :" + white, psutil.cpu_count())
+    print(blue + "Jumlah thread        :" +
+          white, psutil.cpu_count(logical=False))
+    print(blue + "RAM                  :" + white,
+          psutil.virtual_memory().total / 1024 / 1024, "MB")
 
 
 def checkInputD(warning, N):
@@ -204,5 +206,5 @@ if __name__ == "__main__":
 
     # Membuat plot sesuai dengan dimensi
     visualitation(listPoint, pair, D, "Hasil Divide and Conquer")
-    if (pair[0] != pair[0] or pair[1] != pair[1]):
+    if (pair[0] != pair2[0] or pair[1] != pair2[1]):
         visualitation(listPoint, pair2, D, "Hasil Brute Force")
