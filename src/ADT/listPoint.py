@@ -93,11 +93,11 @@ class ListPoint:
                     list3.add(self.get(i))
 
             # Mencari pasangan titik terdekat dari titik-titik yang berada di antara kedua bagian
-            for i in range(list3.size()):
-                for j in range(i+1, min(i+8, list3.size())):
-                    countEucledian += 1
-                    if list3.get(i).distance(list3.get(j)) < minDistance:
-                        closestPointPair = (list3.get(i), list3.get(j))
+            if (list3.size() > 1):
+                temp = list3.getClosestPointPairByBruteForce()
+                countEucledian += temp[2]
+                if temp[0].distance(temp[1]) < minDistance:
+                    closestPointPair = temp
 
             closestPointPair = (
                 closestPointPair[0], closestPointPair[1], countEucledian)

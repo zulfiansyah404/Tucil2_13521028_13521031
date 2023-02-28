@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import time
+import platform
+import psutil
 
 from ADT.point import Point
 from ADT.listPoint import ListPoint
@@ -64,6 +66,16 @@ def checkInputN(warning):
         return N
 
 
+def printSystemInfo():
+    print(cyan + bold + "\nInformasi sistem:" + reset)
+    print(blue + "Nama sistem operasi:" + white, platform.system())
+    print(blue + "Versi sistem operasi:" + white, platform.release())
+    print(blue + "Processor:" + white, platform.processor())
+    print(blue + "Jumlah core:" + white, psutil.cpu_count())
+    print(blue + "Jumlah thread:" + white, psutil.cpu_count(logical=False))
+    print(blue + "RAM:" + white, psutil.virtual_memory().total / 1024 / 1024, "MB\n")
+
+
 def checkInputD(warning, N):
     splashScreen()
     if (warning != ""):
@@ -84,6 +96,7 @@ def checkInputD(warning, N):
 
 
 def visualitation(listPoint, pair, D, text):
+    # Beri warna merah pada warna titik terdekat, sedangkan titik lainnya berwarna biru
     if (D == 2):
         # Plot 2D
         x = []
@@ -92,37 +105,41 @@ def visualitation(listPoint, pair, D, text):
             x.append(listPoint.get(i).coordinates[0])
             y.append(listPoint.get(i).coordinates[1])
 
-        plt.scatter(x, y)
-        plt.plot([pair[0].coordinates[0], pair[1].coordinates[0]], [
-                 pair[0].coordinates[1], pair[1].coordinates[1]], 'r')
-        # Kasih judul pada plot
+        plt.scatter(x, y, color='blue')
+        plt.scatter([pair[0].coordinates[0], pair[1].coordinates[0]], [
+                    pair[0].coordinates[1], pair[1].coordinates[1]], color='red')
         plt.title(text)
         plt.show()
+
     elif (D == 3):
         # Plot 3D
         x = []
         y = []
         z = []
         for i in range(N):
-            x.append(listPoint.get(i).coordinates[0])
-            y.append(listPoint.get(i).coordinates[1])
-            z.append(listPoint.get(i).coordinates[2])
+            # Jika titik bukan titik terdekat, maka beri warna biru
+            if (listPoint.get(i) != pair[0] and listPoint.get(i) != pair[1]):
+                x.append(listPoint.get(i).coordinates[0])
+                y.append(listPoint.get(i).coordinates[1])
+                z.append(listPoint.get(i).coordinates[2])
 
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
-        ax.scatter(x, y, z)
-        ax.plot([pair[0].coordinates[0], pair[1].coordinates[0]], [
-                pair[0].coordinates[1], pair[1].coordinates[1]], [pair[0].coordinates[2], pair[1].coordinates[2]], 'r')
-        plt.title(text)
+        ax.scatter(x, y, z, color='blue')
+        ax.scatter([pair[0].coordinates[0], pair[1].coordinates[0]], [
+            pair[0].coordinates[1], pair[1].coordinates[1]], [pair[0].coordinates[2], pair[1].coordinates[2]], color='red')
+        ax.set_title(text)
         plt.show()
+
     elif (D == 1):
         # Plot 1D
         x = []
         for i in range(N):
             x.append(listPoint.get(i).coordinates[0])
 
-        plt.scatter(x, [0]*N)
-        plt.plot([pair[0].coordinates[0], pair[1].coordinates[0]], [0, 0], 'r')
+        plt.scatter(x, [0] * N, color='blue')
+        plt.scatter([pair[0].coordinates[0], pair[1].coordinates[0]], [
+                    0, 0], color='red')
         plt.title(text)
         plt.show()
 
@@ -152,9 +169,10 @@ if __name__ == "__main__":
     # Mencari pasangan titik terdekat
     timeStart = time.time()
     pair = listPoint.getClosestPointPairByDivideAndConquer()
-
+    timeNow = time.time() - timeStart
+    printSystemInfo()
     # Mencetak pasangan titik terdekat
-    timeStart = time.time()
+
     print(magenta + bold + "\nAlgoritma Divide and Conquer" + reset)
     print(blue + "Pasangan titik terdekat          :", white, end='')
     print("(" + str(pair[0]) + ", " + str(pair[1]) + ")")
@@ -162,19 +180,20 @@ if __name__ == "__main__":
           white, pair[0].distance(pair[1]))
     print(blue + "Jumlah operasi perhitungan jarak :" + white, pair[2])
     print(blue + "Waktu eksekusi                   :" +
-          white, time.time() - timeStart, "detik\n")
+          white, timeNow, "detik\n")
 
     # Bandingkan dengan algoritma brute force
     print(magenta + bold + "Algoritma Brute Force" + reset)
     timeStart = time.time()
     pair2 = listPoint.getClosestPointPairByBruteForce()
+    timeNow = time.time() - timeStart
     print(blue + "Pasangan titik terdekat          :", white, end='')
     print("(" + str(pair2[0]) + ", " + str(pair2[1]) + ")")
     print(blue + "Jarak                            :" +
           white, pair2[0].distance(pair2[1]))
     print(blue + "Jumlah operasi perhitungan jarak :" + white, pair2[2])
     print(blue + "Waktu eksekusi                   :" +
-          white, time.time() - timeStart, "detik\n")
+          white, timeNow, "detik\n")
 
     if (pair[0] == pair2[0] and pair[1] == pair2[1]):
         print(green + "Hasil sama!")
