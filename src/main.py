@@ -180,13 +180,13 @@ if __name__ == "__main__":
     listPoint = ListPoint()
 
     # Membuat titik-titik secara random
-    print(green + "\nTitik-titik yang dibuat secara random: ")
+    # print(green + "\nTitik-titik yang dibuat secara random: ")
     for i in range(N):
         coordinates = []
         for j in range(D):
             coordinates.append(np.random.randint(0, 100))
         listPoint.add(Point(coordinates))
-        print(yellow + "Titik", i+1, ":" + white, listPoint.get(i))
+        # print(yellow + "Titik", i+1, ":" + white, listPoint.get(i))
 
     # Mencari pasangan titik terdekat
     timeStart = time.time()
