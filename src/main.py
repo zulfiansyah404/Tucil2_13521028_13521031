@@ -73,7 +73,7 @@ def printSystemInfo():
     print(blue + "Processor:" + white, platform.processor())
     print(blue + "Jumlah core:" + white, psutil.cpu_count())
     print(blue + "Jumlah thread:" + white, psutil.cpu_count(logical=False))
-    print(blue + "RAM:" + white, psutil.virtual_memory().total / 1024 / 1024, "MB\n")
+    print(blue + "RAM:" + white, psutil.virtual_memory().total / 1024 / 1024, "MB")
 
 
 def checkInputD(warning, N):
