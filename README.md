@@ -6,8 +6,6 @@ Tugas Kecil 2 IF2211 - Strategi Algoritma menugaskan mahasiswa untuk membuat pro
 ## Struktur Folder
 ```
 Tucil2_13521028_13521031/
-├── bin/
-│   └── main.exe
 ├── doc/
 │   └── Tucil2_13521028_13521031.pdf
 ├── src/
